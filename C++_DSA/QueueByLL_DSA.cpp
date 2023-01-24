@@ -6,13 +6,11 @@ struct Node
 {
     int data;
     Node *next;
-    Node *previous;
 };
 
-class Queue
+class QueueLL
 {
     Node *head = nullptr;
-    Node *rear = nullptr;
 
 public:
     void push(int data)
@@ -20,41 +18,41 @@ public:
         if (head == nullptr)
         {
             head = new Node;
-            rear = head;
-            head->previous = head->next = nullptr;
             head->data = data;
+            head->next = nullptr;
+            return;
         }
-        else
-        {
-            Node *tmp1(head);
-            Node *tmp2 = nullptr;
-            while (tmp1->previous != nullptr)
-            {
-                tmp2 = tmp1;
-                tmp1 = tmp1->previous;
-            }
-            tmp1->previous = new Node;
-            tmp1 = tmp1->previous;
-            head = tmp1;
-            tmp1->data = data;
-            tmp1->next = tmp2;
-            tmp1->previous = nullptr;
-        }
+        Node *tmp(new Node);
+        tmp->next = head;
+        tmp->data = data;
+        head = tmp;
     }
+
     void pop()
     {
-        Node *tmp(rear);
-        delete tmp;
-        rear = rear->previous;
-        rear->next = nullptr;
+        if (head == nullptr)
+        {
+            cout << "Underflow";
+            return;
+        }
+        Node *tmp1(head);
+        Node *tmp2(nullptr);
+        while (tmp1->next != nullptr)
+        {
+            tmp2 = tmp1;
+            tmp1 = tmp1->next;
+        }
+        delete tmp1;
+        tmp2->next = nullptr;
     }
+
     void print()
     {
-        Node *tmp(rear);
+        Node *tmp(head);
         cout << tmp->data << endl;
-        while (tmp->previous != nullptr)
+        while (tmp->next != nullptr)
         {
-            tmp = tmp->previous;
+            tmp = tmp->next;
             cout << tmp->data << endl;
         }
     }
@@ -62,18 +60,14 @@ public:
 
 int main()
 {
-    Queue q;
-
+    QueueLL q;
     q.push(1);
-    q.push(2);
+    q.push(12);
     q.push(3);
-    q.push(4);
+    q.push(16);
 
     q.print();
-
-    cout << endl
-         << endl;
+    cout << "\n\n";
     q.pop();
-
     q.print();
 }
