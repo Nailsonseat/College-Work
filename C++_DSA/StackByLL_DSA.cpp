@@ -11,7 +11,6 @@ struct Node
 class Stack
 {
     Node *head = nullptr;
-    int size = 0;
 
 public:
     void add(int data)
@@ -34,7 +33,6 @@ public:
             tmp->data = data;
             tmp->next = nullptr;
         }
-        size++;
     }
 
     void pop()
@@ -71,15 +69,15 @@ public:
 int main()
 {
     Stack s;
-    s.add(3);
-    s.add(4);
-    s.add(5);
-    s.add(6);
+    s.add(33);
+    s.add(456);
+    s.add(54);
+    s.add(656);
 
     s.print();
 
     s.pop();
     cout << endl
-         << endl;
+         << "After pop" << endl;
     s.print();
 }
