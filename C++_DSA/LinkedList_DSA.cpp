@@ -24,10 +24,8 @@ public:
 		else
 		{
 			Node *tmp1(head);
-			Node *tmp2 = nullptr;
 			while (tmp1->next != nullptr)
 			{
-				tmp2 = tmp1;
 				tmp1 = tmp1->next;
 			}
 			tmp1->next = new Node;
