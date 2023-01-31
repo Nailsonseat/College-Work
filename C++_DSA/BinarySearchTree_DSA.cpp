@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -12,9 +13,10 @@ struct Node
 class BST
 {
     Node *root = nullptr;
-    void traverseTill(int item, Node *&parent, Node *&child, bool insert)
+    vector<int> inOrder;
+    void traverse(int item, Node *&parent, Node *&child, bool toDelete)
     {
-        if (!insert)
+        if (toDelete)
         {
             if (parent->left != nullptr && parent->left->data == item)
                 child = parent->left;
@@ -26,18 +28,27 @@ class BST
         if (item < parent->data && parent->left != nullptr)
         {
             parent = parent->left;
-            traverseTill(item, parent, child, insert);
+            traverse(item, parent, child, toDelete);
         }
-        else if (parent->right != nullptr)
+        else if (item >= parent->data && parent->right != nullptr)
         {
             parent = parent->right;
-            traverseTill(item, parent, child, insert);
+            traverse(item, parent, child, toDelete);
         }
     }
 
 public:
+    void getInOrder(Node *node)
+    {
+        if (node->left != nullptr)
+            getInOrder(node->left);
+        inOrder.push_back(node->data);
+        if (node->right != nullptr)
+            getInOrder(node->right);
+    }
     void insert(int item)
     {
+        inOrder.clear();
         Node *parent(root);
         Node *child(nullptr);
         if (root == nullptr)
@@ -47,7 +58,7 @@ public:
         }
         else
         {
-            traverseTill(item, parent, child, true);
+            traverse(item, parent, child, false);
             if (item < parent->data)
             {
                 parent->left = new Node;
@@ -59,6 +70,7 @@ public:
                 parent->right->data = item;
             }
         }
+        getInOrder(root);
     }
 };
 
