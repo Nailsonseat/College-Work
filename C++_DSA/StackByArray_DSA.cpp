@@ -43,6 +43,7 @@ int main()
     s.push(3);
 
     s.print();
+    cout << "\npopped\n\n";
     s.pop();
 
     s.print();

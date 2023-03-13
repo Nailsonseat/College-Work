@@ -44,8 +44,8 @@ public:
     void pop()
     {
         Node *tmp(rear);
-        delete tmp;
         rear = rear->previous;
+        delete tmp;
         rear->next = nullptr;
     }
     void print()

@@ -121,7 +121,7 @@ public:
         }
         else
         {
-            int inOrderSucessor(0);
+            int inOrderSucessor(-1);
             for (int i(0); i < inOrder.size(); i++)
                 if (inOrder[i] == item)
                     inOrderSucessor = inOrder[i + 1];
@@ -152,6 +152,8 @@ int main()
     b.insert(1);
     b.insert(2);
     b.insert(5);
+    b.insert(8);
+    b.insert(9);
     b.deleteNode(4);
     return 0;
 }
